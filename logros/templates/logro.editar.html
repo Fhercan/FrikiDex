@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-12 formulario">
+        <div style="display: flex;border-bottom: 1px solid #dcdcde;">
+            <h2>Registrar nuevo logro</h2>
+        </div>
+        <form method="POST" enctype='multipart/form-data'>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-4">
+                    {{form | crispy}}
+                </div>
+                <div class="col-md-8">
+                    <div style="border: solid 1px var(--bs-border-color);border-radius: 0.375rem;height: 90%;width: 100%;margin-top: 3%;background-color: black;display: flex;" class="justify-content-center">
+                        <img id="foto">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-success">Guardar</button>
+                </div>
+                <div class="col-md-6">
+                    <a class="btn btn-primary" href="{% url 'indexlogros' %}">Regresar</a>
+                </div>  
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script lang="javascript">
+    $(document).ready(function(){
+       //alert('Carga completa');
+    });
+    const $seleccionArchivos = document.querySelector("#id_foto"),
+    $imagenPrevisualizacion = document.querySelector("#foto");
+
+    // Escuchar cuando cambie
+    $seleccionArchivos.addEventListener("change", () => {
+        // Los archivos seleccionados, pueden ser muchos o uno
+        const archivos = $seleccionArchivos.files;
+        // Si no hay archivos salimos de la función y quitamos la imagen
+        if (!archivos || !archivos.length) {
+            $imagenPrevisualizacion.src = "";
+            return;
+        }
+        // Ahora tomamos el primer archivo, el cual vamos a previsualizar
+        const primerArchivo = archivos[0];
+        // Lo convertimos a un objeto de tipo objectURL
+        const objectURL = URL.createObjectURL(primerArchivo);
+        // Y a la fuente de la imagen le ponemos el objectURL
+        $imagenPrevisualizacion.src = objectURL;
+    });
+  </script>
+  {% endblock %}

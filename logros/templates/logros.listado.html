@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block styles %}
+<style>
+  
+  .card{
+    margin-top: 20px;
+    background-color: black;
+  }
+</style>
+{% endblock %}
+{% block content %}
+{% csrf_token %}
+<div class="row justify-content-center">
+  <div class="col-md-12 formulario">
+    <div style="display: flex;">
+      <h2>Mis logros</h2>
+      <div style="margin-left: auto;margin-top: auto;margin-bottom: auto;">
+        <a class="btn btn-primary" href="{% url 'editarlogro' id=0 %}">Registrar nuevo logro</a>
+      </div>
+    </div>
+    <hr>
+    <div style="height:80vh;overflow-y: scroll;">
+      <div class="row">
+        {% for logro in logros %}
+            <div class="col-md-3">
+                <div class="card">
+                    {% if logro.captura == None %}
+                    <img src="{{logro.foto.url}}" class="card-img-top">
+                    {% else %}
+                    <img src="{{logro.captura.url_pokemon}}" class="card-img-top">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{logro.titulo}}</h5>
+                        <p class="card-text">
+                            {{logro.comentarios}}
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                      <div id="publicar{{logro.id}}">
+                        {% if logro.publicar %}
+                        <i class="fa fa-thumbs-up" ></i><span>{{logro.megustas}}</span>
+                        <a class="btn btn-primary" onclick="nopublicar({{logro.id}});"><i class="fa fa-map-signs"></i> Retirar Publicación</a>
+                        {% else %}
+                        <a class="btn btn-primary" onclick="publicar({{logro.id}});"><i class="fa fa-map-signs"></i> Publicar</a>
+                        {% endif %}
+                      </div>
+                      <div>
+                        {% if logro.captura == None %}
+                        <form action="{% url 'borrarlogro' id=logro.id %}" method="POST">
+                          {% csrf_token %}
+                          <button class="btn btn-danger"><i class="fa fa-trash"></i> Borrar logro</button>
+                        </form>
+                        {% endif %}
+                      </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{%block script%}
+<script>
+  function publicar(id){
+    var csrf = $('input[name="csrfmiddlewaretoken"]').val();
+    //incrementar el like del logro
+    $.post("{% url 'publicarlogro' %}",{'csrfmiddlewaretoken':csrf,'id':id},function(result){
+      if(result.resultado){
+        $("#publicar"+id).html('<i class="fa fa-thumbs-up" ></i><span>'+result.like+'</span><a class="btn btn-primary" onclick="nopublicar('+id+');"><i class="fa fa-map-signs"></i> Retirar Publicación</a>');
+      }
+    },'json');
+  }
+  function nopublicar(id){
+    var csrf = $('input[name="csrfmiddlewaretoken"]').val();
+    //incrementar el like del logro
+    $.post("{% url 'nopublicarlogro' %}",{'csrfmiddlewaretoken':csrf,'id':id},function(result){
+      if(result.resultado){
+        $("#publicar"+id).html('<a class="btn btn-primary" onclick="publicar('+id+');"><i class="fa fa-map-signs"></i> Publicar</a>');
+      }
+    },'json');
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-12 formulario">
+        <div style="display: flex;border-bottom: 1px solid #dcdcde;">
+            {% if id == 0 %}
+            <h2>Registrar nueva captura</h2>
+            {% else %}
+            <h2>Actualizar estadisticas</h2>
+            {% endif %}
+        </div>
+        {% if id == 0 %}
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="txtbuscar" placeholder="numero o nombre del pokémon" aria-describedby="button-addon2">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="getPokemonInfo($('#txtbuscar').val())">Buscar</button>
+        </div>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-8" style="border:solid 1px var(--bs-border-color);border-radius: 0.375rem;height:auto;background-color: black;display:flex;">
+                    <div>
+                        <img id="foto" style="border-radius: 0.375rem;">
+                    
+                    </div>
+                    <div>
+                        <h2><span id="lbl_numero"></span></h2>
+                        <h1><span id="lbl_nombre"></span></h1>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    {{form | crispy}}
+                </div>
+            </div>
+            <div class="row">
+                <a class="btn btn-primary" href="capturas">Regresar</a>
+                <button>Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script lang="javascript">
+    {% if id > 0 %}
+    $(document).ready(function(){
+        getPokemonInfo('{{ form.numero_pokemon.value }}');
+    });
+    {% endif %}
+    function getPokemonInfo(pokemon){
+        let data=undefined;
+        $.get("https://pokeapi.co/api/v2/pokemon/"+pokemon+"/",function(result){
+            
+            if($("#id_shiny").prop('checked'))
+            {
+                $("#url").val(result.sprites.other.home.front_shiny);
+            }
+            else
+            {
+                $("#url").val(result.sprites.other.home.front_default);
+            }
+        $("#nombre").val(result.name);
+        $("#numero").val(result.id);
+        $("#lbl_nombre").text(result.name);
+        $("#lbl_numero").text(result.id);
+        $("#foto").attr("src",$("#url").val());
+        //Pasar los datos al formulario
+        },'json').fail(function() {
+            alert( "pokemon no encontrado" );
+            $("#nombre").val('');
+            $("#numero").val('');
+            $("#url").val('');
+            $("#lbl_nombre").val('');
+            $("#lbl_numero").val('');
+            $("#foto").attr("src",'');
+        });
+    }
+  </script>
+  {% endblock %}

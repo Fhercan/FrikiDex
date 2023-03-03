@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block styles %}
+<style>
+  .carousel-item{
+    height: 400px;
+    overflow: hidden;
+  }
+  .carousel-item img{
+    margin-top: -50px;
+  }
+  .card{
+    margin-top: 20px;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-lg-12">
+    <div class="d-flex p-2  justify-content-center">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1920px-International_Pok%C3%A9mon_logo.svg.png" class="card-img-top" alt="Waterfall" style="width:50%">
+    </div>
+  </div>
+  
+  <div class="col-lg-4">
+    <div class="card">
+      <img src="https://www.comunidadumbria.com/imgs/partidas/g_4f3960a07250a.png" class="card-img-top" alt="Waterfall">
+      <div class="card-body">
+        <h5 class="card-title">Se un entrenador</h5>
+        <p class="card-text">
+          Forma parte de la comunidad pokémon Place y comparte con amigos.
+          Registrate!.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-lg-4">
+    <div class="card">
+      <img src="https://www.solofondos.com/wp-content/uploads/2016/06/383733-768x432.jpg" class="card-img-top" alt="Sunset Over the Sea">
+      <div class="card-body">
+        <h5 class="card-title">Capturados</h5>
+        <p class="card-text">
+          Manten un registro de tus pokemons que has capturado.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-lg-4">
+    <div class="card">
+      <img src="https://www.solofondos.com/wp-content/uploads/2016/06/e3af7a3e4a903e7d5b1ce6c3a55828fe-768x480.jpg" class="card-img-top" alt="Sunset over the Sea">
+      <div class="card-body">
+        <h5 class="card-title">Mi Place</h5>
+        <p class="card-text">
+          Un espacio para publicar tus logros para que los vean tus amigos y puedas ver los logros que ellos publican.
+        </p>
+        
+      </div>
+    </div>
+  </div>
+</div>
+  {% endblock %}

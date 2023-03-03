@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block styles %}
+<style>
+  
+  .pokemon{
+    width: 80%;
+    margin-top: 10px;
+    opacity: .6;
+  }
+  .pokemon:hover{
+    opacity: 1;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-12 formulario">
+    <div style="display: flex;">
+      <h2>Capturados</h2>
+      <div style="margin-left: auto;margin-top: auto;margin-bottom: auto;">
+        <a class="btn btn-primary" href="{% url 'editarcaptura' id=0 %}">Registrar nueva captura</a>
+      </div>
+    </div>
+    <hr>
+    <div style="height:80vh;overflow-y: scroll;">
+      <div class="row">
+      {% for captura in capturas %}
+        <div class="col-md-3 text-center">
+          <a href="{% url 'editarcaptura' id=captura.id %}">
+            <div style="background: url('https://ivancvergara.github.io/PokeWeb/img/Pokeball.png') no-repeat;
+            background-size: cover;">
+              <img src="{{captura.url_pokemon}}" class="pokemon">
+              <div style="color: white;font-size: x-large;">No.{{captura.numero_pokemon}} {{captura.nombre_pokemon}}</div>
+            </div>
+          </a>  
+        </div>
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
