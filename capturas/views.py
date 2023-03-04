@@ -23,6 +23,7 @@ def editarCaptura(request, id):
             #Es nuevo logro se genera el formulario en blanco
             form=CapturaForm()
     else:
+        print(request.POST)
         if id>0:
             captura=Captura.objects.get(id=id)
             form=CapturaForm(request.POST, instance=captura)

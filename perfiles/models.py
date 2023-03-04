@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 from django.utils import timezone
+from django.dispatch import receiver
+from allauth.account.signals import user_signed_up
 
 # Create your models here.
 class Perfil(models.Model):
@@ -20,3 +22,15 @@ class Perfil(models.Model):
 		
 	class Meta:
 		verbose_name_plural='Perfiles'
+
+@receiver(user_signed_up)
+def createPerfil(sender=User, **kwargs):
+    new_username = kwargs['user']
+    user = User.objects.get(username = new_username)
+    #Crear el perfil del usuario
+    perfil=Perfil()
+    perfil.user=user
+    perfil.nombre=user.username
+    perfil.pais=None
+    perfil.save()
+    print(perfil)
