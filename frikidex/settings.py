@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 import pymysql
+from local_settings import DEBUG
+from local_settings import USER_DB
+from local_settings import PASSWORD_DB
+from local_settings import NAME_DB
+from local_settings import ALLOWED_HOSTS
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,9 +29,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-g98rxb+i&1gs#(-1q#n-lzf2cp4opbo870!u*+&5akp89!m4$$"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -91,9 +96,9 @@ pymysql.install_as_MySQLdb()
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        'NAME': 'frikidex',
-        'USER': 'root',
-        'PASSWORD': '',
+        'NAME': NAME_DB,
+        'USER': USER_DB,
+        'PASSWORD': PASSWORD_DB,
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
