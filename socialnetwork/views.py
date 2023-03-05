@@ -17,7 +17,7 @@ def likePublicacion(request):
     if request.method=="POST":
         logro=Logro.objects.get(id=request.POST['id'])
         #Verificar que el usuario logueado no sea el creador del Logro
-        if logro.user.id == request.user.id:
+        if logro.user.id != request.user.id:
             #Verificar si ya le habia dado like
             megustas=Megusta.objects.filter(user=request.user,logro=logro)
             if megustas.count() == 0:

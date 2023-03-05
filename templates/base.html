@@ -3,7 +3,7 @@
 <html lang="es">
   <head>
     <meta charset="utf-8">
-    <title>AccessKontrol</title>
+    <title>FrikiDex</title>
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -49,7 +49,7 @@
               <a class="nav-link" href="capturas/"><i class="fa fa-compass"></i></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/"><i class="fa fa-users"></i></a>
+              <a class="nav-link" href="perfil/"><i class="fa fa-users"></i></a>
             </li>
             <!--li class="nav-item">
               <a class="nav-link" href="/"><i class="fa fa-stack-overflow"></i></a>
@@ -59,8 +59,8 @@
                 <i class="fa fa-user"></i>
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#"><i class="fa fa-id-card"></i> Perfil</a></li>
-                <li><a class="dropdown-item" href="cuenta/password_change"><i class="fa fa-key"></i> Cambiar contraseña</a></li>
+                <li><a class="dropdown-item" href="perfil/editar"><i class="fa fa-id-card"></i> Perfil</a></li>
+                <li><a class="dropdown-item" href="accounts/password/change"><i class="fa fa-key"></i> Cambiar contraseña</a></li>
               {% if user.is_staff == True %}
                 <li><a class="dropdown-item" href="admin/"><i class="fa fa-cog"></i> Panel de administrador</a></li>
               {% endif %}

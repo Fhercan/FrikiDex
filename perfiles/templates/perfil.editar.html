@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block styles %}
+<style>
+  
+  .pokemon{
+    width: 80%;
+    margin-top: 10px;
+    opacity: .6;
+  }
+  .pokemon:hover{
+    opacity: 1;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-12 formulario">
+        <h1>Perfil {{user.username}}</h1>
+        <p>Opción pendiente de desarrollo!</p>
+    </div>
+</div>
+{% endblock %}
